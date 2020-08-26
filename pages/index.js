@@ -4,7 +4,9 @@ import { loadData } from '../actions'
 
 const Home = (props) => {
   console.log('props', props);
-  return <h1>Teste</h1>;
+  return props.state.data.map((item) => (
+    <h1>{item.name}</h1>
+  ));
 };
 
 export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
