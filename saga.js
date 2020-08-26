@@ -1,13 +1,5 @@
-import { all, call, delay, put, take, takeLatest } from 'redux-saga/effects'
-import { actionTypes, failure, loadDataSuccess, tickClock } from './actions'
-
-function* runClockSaga() {
-  yield take(actionTypes.START_CLOCK)
-  while (true) {
-    yield put(tickClock(false))
-    yield delay(1000)
-  }
-}
+import { all, put, takeLatest } from 'redux-saga/effects'
+import { actionTypes, loadDataFailure, loadDataSuccess } from './actions'
 
 function* loadDataSaga() {
   try {
@@ -15,13 +7,12 @@ function* loadDataSaga() {
     const data = yield res.json()
     yield put(loadDataSuccess(data))
   } catch (err) {
-    yield put(failure(err))
+    yield put(loadDataFailure(err))
   }
 }
 
 function* rootSaga() {
   yield all([
-    call(runClockSaga),
     takeLatest(actionTypes.LOAD_DATA, loadDataSaga),
   ])
 }
