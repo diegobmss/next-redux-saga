@@ -8,7 +8,7 @@ export const { Creators, Types } = createActions({
 
 const INITIAL_STATE = {
   isLoading: false,
-  colorGroups: {},
+  data: {},
 };
 
 const requestColorGroups = (state = INITIAL_STATE) => ({
